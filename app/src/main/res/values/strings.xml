@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DragAndDrop</string>
+    <string name="DragButton">DRAGGABLE BUTTON</string>
+    <string name="ButtonTag">ButtonTag</string>
+</resources>
