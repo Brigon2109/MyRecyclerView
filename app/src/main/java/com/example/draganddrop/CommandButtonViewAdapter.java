@@ -64,7 +64,8 @@ public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButton
         public CommandButtonViewHolder(@NonNull View itemView, ArrayList<ListButton> mDataset) {
             super(itemView);
             ListButton db = itemView.findViewById(R.id.listButton);
-            mDataset.add(db);
+            db.setText(mDataset.get(mDataset.size()-1).getText());
+            mDataset.set(mDataset.size()-1, db);
             draggableButton = db;
             if(draggableButton.getState()){
                 draggableButton.setBackgroundColor(Color.BLACK);
