@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity{
 
                             view.setBackgroundColor(Color.GREEN);
                             view.invalidate();
+                            for (ListButton lb : blasMirDochEinen){
+                                System.out.println("bmde" + lb.getText() + ": " + lb.getState());
+                            }
+                            System.out.println("ARE THEY EQUAL??? " + (blasMirDochEinen == cbva.mDataset));
                             cbva.printDataSet();
                         }else {
                             view.setBackgroundColor(Color.RED);

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButtonViewAdapter.CommandButtonViewHolder> {
 
@@ -20,7 +21,7 @@ public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButton
     @Override
     public CommandButtonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         @SuppressLint("ResourceType") View ll =  LayoutInflater.from(parent.getContext()).inflate(R.layout.teaml_commandbutton_layout, parent,!true);
-        return new CommandButtonViewHolder(ll);
+        return new CommandButtonViewHolder(ll,  mDataset);
     }
 
     @Override
@@ -28,9 +29,9 @@ public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButton
         ListButton oldLB = mDataset.get(position);
 
         holder.draggableButton.setText(oldLB.getText());
-        holder.draggableButton.state = oldLB.state;
+        //holder.draggableButton.setState(oldLB.getState(), "onBindViewHolder");
 
-        if(holder.draggableButton.state){
+        if(holder.draggableButton.getState()){
             holder.draggableButton.setBackgroundColor(Color.BLACK);
         }else{
             holder.draggableButton.setBackgroundColor(Color.WHITE);
@@ -60,11 +61,12 @@ public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButton
 
         public ListButton draggableButton;
 
-        public CommandButtonViewHolder(@NonNull View itemView) {
+        public CommandButtonViewHolder(@NonNull View itemView, ArrayList<ListButton> mDataset) {
             super(itemView);
             ListButton db = itemView.findViewById(R.id.listButton);
+            mDataset.add(db);
             draggableButton = db;
-            if(draggableButton.state){
+            if(draggableButton.getState()){
                 draggableButton.setBackgroundColor(Color.BLACK);
             }else{
                 draggableButton.setBackgroundColor(Color.WHITE);
@@ -74,7 +76,7 @@ public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButton
 
     public void printDataSet(){
         for(ListButton listButton: mDataset){
-            System.out.println(listButton.getText() + ": " + listButton.state);
+            System.out.println(listButton.getText() + ": " + listButton.getState());
         }
     }
 }
