@@ -18,7 +18,7 @@ public class ListButton extends Button {
     public boolean state = false;
 
     public void setListener(){
-        this.setOnDragListener(new ButtonDragListener(){
+        this.setOnDragListener(new View.OnDragListener(){
             private boolean lastValue = false;
 
             @Override
@@ -41,7 +41,7 @@ public class ListButton extends Button {
                     case DragEvent.ACTION_DRAG_ENDED:{
                         if(dragEvent.getResult()&& lastValue){
                             state = true;
-                            Log.i("BUTTON","HELP");
+                            Log.i("BUTTON","HELP1");
                         }else {
 
                         }
@@ -59,20 +59,17 @@ public class ListButton extends Button {
 
     public ListButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setOnDragListener(new ButtonDragListener());
         setListener();
     }
 
     public ListButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.setOnDragListener(new ButtonDragListener());
         setListener();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ListButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        this.setOnDragListener(new ButtonDragListener());
         setListener();
     }
 }
