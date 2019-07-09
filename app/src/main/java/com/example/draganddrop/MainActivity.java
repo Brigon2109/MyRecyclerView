@@ -5,10 +5,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.ClipData;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.View;
@@ -21,12 +18,16 @@ public class MainActivity extends AppCompatActivity{
     static CommandButtonViewAdapter cbva = new CommandButtonViewAdapter(blasMirDochEinen);
     static boolean lastValue = false;
 
-    public static Drawable draw;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DraggableButton db1 = findViewById(R.id.dragButton);
+        DraggableButton db2= findViewById(R.id.ifButton);
+
+        db1.setCurrentType(DraggableButton.CommandType.MOVE_TO);
+        db2.setCurrentType(DraggableButton.CommandType.IF_BRANCHE);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         RecyclerView rv = findViewById(R.id.DragSurface);
@@ -34,12 +35,7 @@ public class MainActivity extends AppCompatActivity{
         rv.setLayoutManager(layoutManager);
         rv.setItemAnimator(new DefaultItemAnimator());
 
-        rv.getRecycledViewPool().setMaxRecycledViews(1000, 0);
         rv.setAdapter(cbva);
-
-        ListButton newInstance = new ListButton(getApplicationContext());
-        newInstance.setText("Kein Glas Wein");
-        blasMirDochEinen.add(newInstance);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT){
 
@@ -63,44 +59,55 @@ public class MainActivity extends AppCompatActivity{
             public boolean onDrag(View view, DragEvent dragEvent) {
                 int event = dragEvent.getAction();
                 switch (event){
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        view.setBackgroundColor(Color.WHITE);
-                        view.invalidate();
-                        return true;
                     case DragEvent.ACTION_DRAG_ENTERED:
-                        view.setBackgroundColor(Color.BLUE);
-                        view.invalidate();
                         lastValue = true;
-                        return true;
-                    case DragEvent.ACTION_DRAG_LOCATION:
                         return true;
                     case DragEvent.ACTION_DRAG_EXITED:
                         view.setBackgroundColor(Color.WHITE);
                         view.invalidate();
                         lastValue = false;
                         return true;
-                    case DragEvent.ACTION_DROP:
-                        ClipData cp = dragEvent.getClipData();
-                        return true;
                     case DragEvent.ACTION_DRAG_ENDED:{
                         if(BuildConfig.DEBUG){
                         }
                         if(dragEvent.getResult() && lastValue){
-                            ListButton newInstance = new ListButton(getApplicationContext());
-                            newInstance.setText("TEST" + cbva.mDataset.size());
-                            blasMirDochEinen.add(newInstance);
-                            cbva.notifyDataSetChanged();
 
-                            view.setBackgroundColor(Color.GREEN);
-                            view.invalidate();
-                            for (ListButton lb : blasMirDochEinen){
-                                System.out.println("bmde" + lb.getText() + ": " + lb.getState());
+                            DraggableButton dragb = (DraggableButton) dragEvent.getLocalState();
+                            switch (dragb.getCurrentType()){
+                                case TURN:
+                                    break;
+                                case MOVE_TO:
+                                    ListButton newInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
+                                    blasMirDochEinen.add(newInstance);
+                                    break;
+                                case FOR_LOOP:
+                                    break;
+                                case IF_BRANCHE:
+                                    newInstance = new ListButton(getApplicationContext());
+                                    ListButton backOfInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
+                                    backOfInstance.setText("END_IF");
+                                    blasMirDochEinen.add(newInstance);
+                                    blasMirDochEinen.add(backOfInstance);
+                                    break;
+                                case SCAN_ENVIRONMENT:
+                                    break;
+                                case SCAN_LINE:
+                                    break;
+                                case TELEPORT:
+                                    break;
+                                case WHILE_LOOP:
+                                    break;
+                                default:
+                                    try {
+                                        throw new SomeThingWentWrongException();
+                                    } catch (SomeThingWentWrongException e) {
+                                        e.printStackTrace();
+                                    }
+                                    break;
                             }
-                            System.out.println("ARE THEY EQUAL??? " + (blasMirDochEinen == cbva.mDataset));
-                            cbva.printDataSet();
-                        }else {
-                            view.setBackgroundColor(Color.RED);
-                            view.invalidate();
+                            cbva.notifyDataSetChanged();
                         }
                     }
                 }
