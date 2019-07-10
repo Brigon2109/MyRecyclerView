@@ -1,10 +1,12 @@
 package com.example.draganddrop;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -20,12 +22,13 @@ public class CommandButtonViewAdapter extends RecyclerView.Adapter<CommandButton
         return new CommandButtonViewHolder(ll);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull CommandButtonViewHolder holder, int position) {
         ListButton oldLB = mDataset.get(position);
-
+        holder.draggableButton.setBackground(oldLB.getBackground());
         holder.draggableButton.setText(oldLB.getText());
-        //holder.draggableButton.setState(oldLB.getState(), "onBindViewHolder");
+        holder.draggableButton.setCurrentType(oldLB.getCurrentType());
     }
 
     @Override

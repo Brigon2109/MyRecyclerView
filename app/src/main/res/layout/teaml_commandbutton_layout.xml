@@ -8,7 +8,5 @@
         android:id="@+id/listButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/teaml_commandbutton"
-        android:tag="@string/ButtonTag"
-        android:text="Button" />
+        android:tag="@string/ButtonTag" />
 </LinearLayout>

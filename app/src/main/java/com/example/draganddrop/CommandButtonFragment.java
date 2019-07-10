@@ -2,12 +2,12 @@ package com.example.draganddrop;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -61,7 +61,7 @@ public class CommandButtonFragment extends Fragment {
         DraggableButton db6 = view.findViewById(R.id.teleportButton);
 
         db1.setCurrentType(DraggableButton.CommandType.MOVE_TO);
-        db2.setCurrentType(DraggableButton.CommandType.IF_BRANCHE);
+        db2.setCurrentType(DraggableButton.CommandType.IF_BRANCH);
         db3.setCurrentType(DraggableButton.CommandType.WHILE_LOOP);
         db4.setCurrentType(DraggableButton.CommandType.SCAN_LINE);
         db5.setCurrentType(DraggableButton.CommandType.SCAN_ENVIRONMENT);
@@ -117,6 +117,7 @@ public class CommandButtonFragment extends Fragment {
                                     break;
                                 case MOVE_TO:
                                     ListButton newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.MOVE_TO);
+                                    newInstance.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.teaml_move));
                                     newInstance.setBackground(dragb.getBackground());
                                     newInstance.setText("MOVE TO");
                                     listButtons.add(newInstance);
@@ -131,8 +132,8 @@ public class CommandButtonFragment extends Fragment {
                                     listButtons.add(newInstance);
                                     listButtons.add(backOfInstance);
                                     break;
-                                case IF_BRANCHE:
-                                    newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.IF_BRANCHE);
+                                case IF_BRANCH:
+                                    newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.IF_BRANCH);
                                     backOfInstance = new ListButton(view.getContext(), DraggableButton.CommandType.END_IF);
                                     newInstance.setBackground(dragb.getBackground());
                                     backOfInstance.setBackground(dragb.getBackground());
@@ -164,36 +165,36 @@ public class CommandButtonFragment extends Fragment {
                                     backOfInstance = new ListButton(view.getContext(), DraggableButton.CommandType.END_WHILE);
                                     newInstance.setBackground(dragb.getBackground());
                                     backOfInstance.setBackground(dragb.getBackground());
-                                    newInstance.setText("WHILE");
+                                    newInstance.setText("WHILE LOOP");
                                     backOfInstance.setText("END WHILE");
                                     listButtons.add(newInstance);
                                     listButtons.add(backOfInstance);
                                     break;
                                 case END_IF:
                                     try {
-                                        throw new SomeThingWentWrongException();
-                                    } catch (SomeThingWentWrongException e) {
+                                        throw new CommandCompileException();
+                                    } catch (CommandCompileException e) {
                                         e.printStackTrace();
                                     }
                                     break;
                                 case END_FOR:
                                     try {
-                                        throw new SomeThingWentWrongException();
-                                    } catch (SomeThingWentWrongException e) {
+                                        throw new CommandCompileException();
+                                    } catch (CommandCompileException e) {
                                         e.printStackTrace();
                                     }
                                     break;
                                 case END_WHILE:
                                     try {
-                                        throw new SomeThingWentWrongException();
-                                    } catch (SomeThingWentWrongException e) {
+                                        throw new CommandCompileException();
+                                    } catch (CommandCompileException e) {
                                         e.printStackTrace();
                                     }
                                     break;
                                 default:
                                     try {
-                                        throw new SomeThingWentWrongException();
-                                    } catch (SomeThingWentWrongException e) {
+                                        throw new CommandCompileException();
+                                    } catch (CommandCompileException e) {
                                         e.printStackTrace();
                                     }
                                     break;

@@ -30,4 +30,12 @@ public class ListButton extends Button {
     public ListButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
+
+    public DraggableButton.CommandType getCurrentType() {
+        return currentType;
+    }
+
+    public void setCurrentType(DraggableButton.CommandType currentType){
+        this.currentType = currentType;
+    }
 }
