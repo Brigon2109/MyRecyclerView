@@ -17,7 +17,7 @@ public class DraggableButton extends Button {
     public enum CommandType{
         IF_BRANCHE, SCAN_LINE, SCAN_ENVIRONMENT,
         MOVE_TO, FOR_LOOP, WHILE_LOOP, TELEPORT,
-        TURN
+        TURN, END_FOR, END_IF, END_WHILE
     }
 
     private CommandType currentType;
