@@ -2,9 +2,12 @@ package com.example.draganddrop;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -18,15 +21,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CommandButtonFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CommandButtonFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CommandButtonFragment extends Fragment {
 
     static ArrayList<ListButton> listButtons = new ArrayList<>();
@@ -59,13 +53,19 @@ public class CommandButtonFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.teaml_fragment_command_button, container, false);
 
-        DraggableButton db1 = view.findViewById(R.id.dragButton);
-        //DraggableButton db2 = findViewById(R.id.ifButton);
-        //DraggableButton db3 = findViewById(R.id.whileButton);
+        DraggableButton db1 = view.findViewById(R.id.movetoButton);
+        DraggableButton db2 = view.findViewById(R.id.ifButton);
+        DraggableButton db3 = view.findViewById(R.id.whileButton);
+        DraggableButton db4 = view.findViewById(R.id.scanlineButton);
+        DraggableButton db5 = view.findViewById(R.id.scanenvButton);
+        DraggableButton db6 = view.findViewById(R.id.teleportButton);
 
-        db1.setCurrentType(DraggableButton.CommandType.WHILE_LOOP);
-        //db2.setCurrentType(DraggableButton.CommandType.IF_BRANCHE);
-        //db3.setCurrentType(DraggableButton.CommandType.WHILE_LOOP);
+        db1.setCurrentType(DraggableButton.CommandType.MOVE_TO);
+        db2.setCurrentType(DraggableButton.CommandType.IF_BRANCHE);
+        db3.setCurrentType(DraggableButton.CommandType.WHILE_LOOP);
+        db4.setCurrentType(DraggableButton.CommandType.SCAN_LINE);
+        db5.setCurrentType(DraggableButton.CommandType.SCAN_ENVIRONMENT);
+        db6.setCurrentType(DraggableButton.CommandType.TELEPORT);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         RecyclerView rv = view.findViewById(R.id.DragSurface);
@@ -95,6 +95,7 @@ public class CommandButtonFragment extends Fragment {
         rv.setOnDragListener(new View.OnDragListener() {
             boolean lastValue = false;
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public boolean onDrag(View view, DragEvent dragEvent) {
 
@@ -116,12 +117,15 @@ public class CommandButtonFragment extends Fragment {
                                     break;
                                 case MOVE_TO:
                                     ListButton newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.MOVE_TO);
+                                    newInstance.setBackground(dragb.getBackground());
                                     newInstance.setText("MOVE TO");
                                     listButtons.add(newInstance);
                                     break;
                                 case FOR_LOOP:
                                     newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.FOR_LOOP);
                                     ListButton backOfInstance = new ListButton(view.getContext(), DraggableButton.CommandType.END_FOR);
+                                    newInstance.setBackground(dragb.getBackground());
+                                    backOfInstance.setBackground(dragb.getBackground());
                                     newInstance.setText("FOR LOOP");
                                     backOfInstance.setText("END FOR");
                                     listButtons.add(newInstance);
@@ -130,6 +134,8 @@ public class CommandButtonFragment extends Fragment {
                                 case IF_BRANCHE:
                                     newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.IF_BRANCHE);
                                     backOfInstance = new ListButton(view.getContext(), DraggableButton.CommandType.END_IF);
+                                    newInstance.setBackground(dragb.getBackground());
+                                    backOfInstance.setBackground(dragb.getBackground());
                                     newInstance.setText("IF BRANCH");
                                     backOfInstance.setText("END IF");
                                     listButtons.add(newInstance);
@@ -138,21 +144,26 @@ public class CommandButtonFragment extends Fragment {
                                 case SCAN_ENVIRONMENT:
                                     newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.SCAN_ENVIRONMENT);
                                     newInstance.setText("SCAN ENVIRONMENT");
+                                    newInstance.setBackground(dragb.getBackground());
                                     listButtons.add(newInstance);
                                     break;
                                 case SCAN_LINE:
                                     newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.SCAN_LINE);
                                     newInstance.setText("SCAN LINE");
+                                    newInstance.setBackground(dragb.getBackground());
                                     listButtons.add(newInstance);
                                     break;
                                 case TELEPORT:
                                     newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.TELEPORT);
                                     newInstance.setText("TELEPORT");
+                                    newInstance.setBackground(dragb.getBackground());
                                     listButtons.add(newInstance);
                                     break;
                                 case WHILE_LOOP:
                                     newInstance = new ListButton(view.getContext(), DraggableButton.CommandType.WHILE_LOOP);
                                     backOfInstance = new ListButton(view.getContext(), DraggableButton.CommandType.END_WHILE);
+                                    newInstance.setBackground(dragb.getBackground());
+                                    backOfInstance.setBackground(dragb.getBackground());
                                     newInstance.setText("WHILE");
                                     backOfInstance.setText("END WHILE");
                                     listButtons.add(newInstance);
@@ -213,7 +224,6 @@ public class CommandButtonFragment extends Fragment {
         mListener = null;
     }
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

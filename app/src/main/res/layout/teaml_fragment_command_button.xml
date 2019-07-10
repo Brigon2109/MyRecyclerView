@@ -1,48 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/overLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Hello World!"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DragSurface" />
-
-    <com.example.draganddrop.DraggableButton
-        android:id="@+id/dragButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/teaml_commandbutton"
-        android:tag="@string/ButtonTag"
-        android:text="@string/DragButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.example.draganddrop.DraggableButton
+            android:id="@+id/movetoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/teaml_commandbutton_move"
+            android:tag="@string/ButtonTag"
+            android:text="@string/moveButton" />
+
+        <com.example.draganddrop.DraggableButton
+            android:id="@+id/ifButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/teaml_commandbutton_if"
+            android:tag="@string/ButtonTag"
+            android:text="@string/ifButtonTag" />
+
+        <com.example.draganddrop.DraggableButton
+            android:id="@+id/whileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/teaml_commandbutton_while"
+            android:tag="@string/ButtonTag"
+            android:text="@string/whileButtonTag" />
+
+        <com.example.draganddrop.DraggableButton
+            android:id="@+id/scanlineButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/teaml_commandbutton_scanl"
+            android:tag="@string/ButtonTag"
+            android:text="@string/scanLineButton" />
+
+        <com.example.draganddrop.DraggableButton
+            android:id="@+id/scanenvButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/teaml_commandbutton_scane"
+            android:tag="@string/ButtonTag"
+            android:text="@string/scanEnvironmentButton" />
+
+        <com.example.draganddrop.DraggableButton
+            android:id="@+id/teleportButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/teaml_commandbutton_teleport"
+            android:tag="@string/ButtonTag"
+            android:text="@string/TeleportButton" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/DragSurface"
-        android:layout_width="295dp"
-        android:layout_height="388dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="229dp"
+        android:layout_height="match_parent"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:clickable="false"
         android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="344dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

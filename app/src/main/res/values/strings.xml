@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">DragAndDrop</string>
     <string name="DragButton">DRAGGABLE BUTTON</string>
-    <string name="ButtonTag">ButtonTag</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ifButtonTag">IF</string>
+    <string name="whileButtonTag">WHILE</string>
+    <string name="moveButton">MOVE</string>
+    <string name="scanLineButton">SCAN LINE</string>
+    <string name="scanEnvironmentButton">SCAN ENVIRONMENT</string>
+    <string name="TeleportButton">TELEPORT</string>
+    <string name="ButtonTag">buttonTag</string>
 </resources>
