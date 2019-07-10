@@ -14,9 +14,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-    static ArrayList<ListButton> blasMirDochEinen = new ArrayList<>();
-    static CommandButtonViewAdapter cbva = new CommandButtonViewAdapter(blasMirDochEinen);
-    static boolean lastValue = false;
+    static ArrayList<ListButton> listButtons = new ArrayList<>();
+    static CommandButtonViewAdapter cbva = new CommandButtonViewAdapter(listButtons);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +23,12 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         DraggableButton db1 = findViewById(R.id.dragButton);
-        DraggableButton db2= findViewById(R.id.ifButton);
+        DraggableButton db2 = findViewById(R.id.ifButton);
+        DraggableButton db3 = findViewById(R.id.whileButton);
 
         db1.setCurrentType(DraggableButton.CommandType.MOVE_TO);
         db2.setCurrentType(DraggableButton.CommandType.IF_BRANCHE);
+        db3.setCurrentType(DraggableButton.CommandType.WHILE_LOOP);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         RecyclerView rv = findViewById(R.id.DragSurface);
@@ -55,8 +56,11 @@ public class MainActivity extends AppCompatActivity{
         itemTouchHelper.attachToRecyclerView(rv);
 
         rv.setOnDragListener(new View.OnDragListener() {
+            boolean lastValue = false;
+
             @Override
             public boolean onDrag(View view, DragEvent dragEvent) {
+
                 int event = dragEvent.getAction();
                 switch (event){
                     case DragEvent.ACTION_DRAG_ENTERED:
@@ -68,10 +72,7 @@ public class MainActivity extends AppCompatActivity{
                         lastValue = false;
                         return true;
                     case DragEvent.ACTION_DRAG_ENDED:{
-                        if(BuildConfig.DEBUG){
-                        }
                         if(dragEvent.getResult() && lastValue){
-
                             DraggableButton dragb = (DraggableButton) dragEvent.getLocalState();
                             switch (dragb.getCurrentType()){
                                 case TURN:
@@ -79,25 +80,46 @@ public class MainActivity extends AppCompatActivity{
                                 case MOVE_TO:
                                     ListButton newInstance = new ListButton(getApplicationContext());
                                     newInstance.setText(dragb.getCurrentType().toString());
-                                    blasMirDochEinen.add(newInstance);
+                                    listButtons.add(newInstance);
                                     break;
                                 case FOR_LOOP:
-                                    break;
-                                case IF_BRANCHE:
                                     newInstance = new ListButton(getApplicationContext());
                                     ListButton backOfInstance = new ListButton(getApplicationContext());
                                     newInstance.setText(dragb.getCurrentType().toString());
+                                    backOfInstance.setText("END_FOR");
+                                    listButtons.add(newInstance);
+                                    listButtons.add(backOfInstance);
+                                    break;
+                                case IF_BRANCHE:
+                                    newInstance = new ListButton(getApplicationContext());
+                                    backOfInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
                                     backOfInstance.setText("END_IF");
-                                    blasMirDochEinen.add(newInstance);
-                                    blasMirDochEinen.add(backOfInstance);
+                                    listButtons.add(newInstance);
+                                    listButtons.add(backOfInstance);
                                     break;
                                 case SCAN_ENVIRONMENT:
+                                    newInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
+                                    listButtons.add(newInstance);
                                     break;
                                 case SCAN_LINE:
+                                    newInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
+                                    listButtons.add(newInstance);
                                     break;
                                 case TELEPORT:
+                                    newInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
+                                    listButtons.add(newInstance);
                                     break;
                                 case WHILE_LOOP:
+                                    newInstance = new ListButton(getApplicationContext());
+                                    backOfInstance = new ListButton(getApplicationContext());
+                                    newInstance.setText(dragb.getCurrentType().toString());
+                                    backOfInstance.setText("END_WHILE");
+                                    listButtons.add(newInstance);
+                                    listButtons.add(backOfInstance);
                                     break;
                                 default:
                                     try {
@@ -117,16 +139,16 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void moveItem(int oldPos, int newPos) {
-        ListButton dba = blasMirDochEinen.get(oldPos);
-        blasMirDochEinen.remove(oldPos);
+        ListButton dba = listButtons.get(oldPos);
+        listButtons.remove(oldPos);
 
-        blasMirDochEinen.add(newPos, dba);
+        listButtons.add(newPos, dba);
         cbva.notifyItemMoved(oldPos, newPos);
 
     }
 
     private void deleteItem(int oldPos) {
-        blasMirDochEinen.remove(oldPos);
+        listButtons.remove(oldPos);
         cbva.notifyItemRemoved(oldPos);
     }
     
